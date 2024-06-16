@@ -171,29 +171,29 @@ int main()
 
 
 
-#include<iostream>
-#include<cmath>
-using namespace std;
-using ll = long long;
-const ll N = 1e12;
-int main()
-{
-    ll n;
-    cin >> n;
-    ll x = sqrt(n) + 0.5;
-    ll cnt = N;
-    if((n - x * x) > 0 && (n - x * x) % 2 == 0){
-        cnt = min(cnt, (n - x * x) / 2);
-    }
-    if((x * x - n) > 0 && (x * x - n) % 2 == 0){
-        cnt = min(cnt, (x * x - n) / 2);
-    }
-    if(((x + 1) * (x + 1) - n) > 0 && ((x + 1) * (x + 1) - n) % 2 == 0){
-        cnt = min(cnt, ((x + 1) * (x + 1) - n) / 2);
-    }
-    if((n - (x - 1) * (x - 1)) > 0 && (n - (x - 1) * (x - 1)) % 2 == 0){
-        cnt = min(cnt, (n - (x - 1) * (x - 1)) / 2);
-    }
-    cout << cnt;
-    return 0;
-}
+//#include<iostream>
+//#include<cmath>
+//using namespace std;
+//using ll = long long;
+//const ll N = 1e12;
+//int main()
+//{
+//    ll n;
+//    cin >> n;
+//    ll x = sqrt(n) + 0.5;
+//    ll cnt = N;
+//    if((n - x * x) > 0 && (n - x * x) % 2 == 0){
+//        cnt = min(cnt, (n - x * x) / 2);
+//    }
+//    if((x * x - n) > 0 && (x * x - n) % 2 == 0){
+//        cnt = min(cnt, (x * x - n) / 2);
+//    }
+//    if(((x + 1) * (x + 1) - n) > 0 && ((x + 1) * (x + 1) - n) % 2 == 0){
+//        cnt = min(cnt, ((x + 1) * (x + 1) - n) / 2);
+//    }
+//    if((n - (x - 1) * (x - 1)) > 0 && (n - (x - 1) * (x - 1)) % 2 == 0){
+//        cnt = min(cnt, (n - (x - 1) * (x - 1)) / 2);
+//    }
+//    cout << cnt;
+//    return 0;
+//}
