@@ -12,3 +12,162 @@
 //6)借助student类验证常对象、常成员以及静态成员的相关特点与使用方法。
 //7)引入information类，此类中包含weight、height和age三个数据成员，以及读写这些数据成员的set与get成员函数。
 // 同时，该类具备带参构造函数和析构函数。将information类对象作为student类的一个数据成员，验证并测试组合对象的相关知识。
+#include<iostream>
+#include<vector>
+#include<cstring>
+#pragma warning( disable : 4996)
+using namespace std;
+class Information {
+private:
+    double m_weight;
+    double m_height;
+    int m_age;
+public:
+    Information() :m_weight(0), m_height(0), m_age(0) {}
+    Information(double weight, double height, int age) :m_weight(weight), m_height(height), m_age(age) {}
+    ~Information() {}
+    void setWeight(double weight) {
+        m_weight = weight;
+    }
+    double getWeight() {
+        return m_weight;
+    }
+    void setHeight(double height) {
+        m_height = height;
+    }
+    double getHeight() {
+        return m_height;
+    }
+    void setAge(int age) {
+        m_age = age;
+    }
+    int getAge() {
+        return m_age;
+    }
+};
+
+class Student{
+private:
+    char* m_id;
+    char* m_name;
+    int m_math;
+    int m_english;
+    int m_c;
+    Information m_info;
+public:
+    Student() {}
+    Student(char* id, char* name, int math, int english, int c)
+    :m_id(new char[strlen(id)+1]), m_name(new char[strlen(name)+1]), m_math(math), m_english(english), m_c(c)
+    { 
+        strcpy(m_id, id);
+        strcpy(m_name, name);
+    }
+    Student(const Student& s)
+    :m_id(new char[strlen(s.m_id)+1]), m_name(new char[strlen(s.m_name)+1]), m_math(s.m_math), m_english(s.m_english), m_c(s.m_c)
+    {
+        strcpy(m_id, s.m_id);
+        strcpy(m_name, s.m_name);
+    }
+    ~Student(){
+        delete[] m_id;
+        delete[] m_name;
+    }
+    void set(char* id, char* name, int math, int english, int c)
+    {
+        m_id = new char[strlen(id) + 1];
+        m_name = new char[strlen(name) + 1];
+        m_math = math;
+        m_english = english;
+        m_c = c;
+        strcpy(m_id, id);
+        strcpy(m_name, name);
+    }
+    void setScore(int math, int english, int c){
+        m_math = math;
+        m_english = english;
+        m_c = c;
+    }
+    double average(){
+        return sum() / 3.0;
+    }
+    int sum(){
+        return m_math + m_english + m_c;
+    }
+    void print(){
+        cout << "学号：" << m_id << "  " ;
+        cout << "姓名：" << m_name << "  " ;
+        cout << "数学：" << m_math << "  ";
+        cout << "英语：" << m_english << "  ";
+        cout << "C语言：" << m_c << endl;
+    }
+};
+
+void test1() {
+    int n;
+    cout << "请输入学生数量：" << endl;
+    cin >> n;
+    vector<Student>a(n);
+    for (int i = 0; i < n; i++) {
+        char id[10];
+        char name[10];
+        int math, english, c;
+        cout << "请输入第" << i + 1 << "个学生的学号、姓名、数学、英语、C语言成绩：" << endl;
+        cin >> id >> name >> math >> english >> c;
+        a[i].set(id, name, math, english, c);
+    }
+    for (int i = 0; i < n; i++) {
+        a[i].print();
+        cout << "平均数：" << a[i].average() << endl;
+        cout << "总分：" << a[i].sum() << endl;
+    }
+}
+void test2(Student *s2) {
+    char id[10] = "123456";
+    char name[10] = "张三";
+    int math = 80;
+    int english = 90;
+    int c = 95;
+    s2->set(id, name, math, english, c);
+    s2->print();
+    cout << "平均数：" << s2->average() << endl;
+    cout << "总分：" << s2->sum() << endl;
+}
+
+void test3(Student& s3) {
+    char id[10] = "123456";
+    char name[10] = "张三";
+    int math = 80;
+    int english = 90;
+    int c = 95;
+    s3.set(id, name, math, english, c);
+    s3.print();
+    cout << "平均数：" << s3.average() << endl;
+    cout << "总分：" << s3.sum() << endl;
+}
+
+void test4() {
+    Student s2;
+    char id[10] = "123456";
+    char name[10] = "张三";
+    int math = 80;
+    int english = 90;
+    int c = 95;
+    s2.set(id, name, math, english, c);
+    s2.print();
+    cout << "平均数：" << s2.average() << endl;
+    cout << "总分：" << s2.sum() << endl;
+    s2.m_info.setAge()
+    
+}
+
+
+int main() {
+    //test1();
+    //test2(new Student);
+
+    /*Student s3;
+    test3(s3);*/
+
+    test4();
+    return 0;
+}

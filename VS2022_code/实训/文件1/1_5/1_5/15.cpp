@@ -18,13 +18,13 @@ bool isTriangle(int a, int b, int c) {
 //判断三角形的形状的函数
 string getShape(int a, int b, int c) {
 	if (a == b && b == c) {
-		return "等腰直角三角形";
-	}
-	else if (a == b || b == c || a == c) {
 		return "等边三角形";
 	}
+	else if (a == b || b == c || a == c) {
+		return "等腰三角形";
+	}
 	else {
-		return "普通三角形";
+		return "不等边三角形";
 	}
 }
 
