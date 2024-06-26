@@ -145,29 +145,11 @@ void test3(Student& s3) {
     cout << "总分：" << s3.sum() << endl;
 }
 
-void test4() {
-    Student s2;
-    char id[10] = "123456";
-    char name[10] = "张三";
-    int math = 80;
-    int english = 90;
-    int c = 95;
-    s2.set(id, name, math, english, c);
-    s2.print();
-    cout << "平均数：" << s2.average() << endl;
-    cout << "总分：" << s2.sum() << endl;
-    s2.m_info.setAge()
-    
-}
-
-
 int main() {
-    //test1();
+    test1();
     //test2(new Student);
 
     /*Student s3;
     test3(s3);*/
-
-    test4();
     return 0;
 }

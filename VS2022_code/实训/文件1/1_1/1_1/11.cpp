@@ -25,15 +25,19 @@ bool prime(int n) {
 }
 
 int main() {
-    int n;
-    cout << "请输入一个整数:";
-    cin >> n;
-    if (prime(n)) {
-        cout << "是素数\n";
+    int n = 1;
+    while (n) {
+        cout << "请输入一个整数(0退出):";
+        cin >> n;
+        if (n == 0) {
+            break;
+        }
+        if (prime(n)) {
+            cout << "是素数\n";
+        }
+        else {
+            cout << "不是素数\n";
+        }
     }
-    else {
-        cout << "不是素数\n";
-    }
-
     return 0;
 }

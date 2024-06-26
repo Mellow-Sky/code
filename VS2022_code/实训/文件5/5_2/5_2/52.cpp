@@ -207,11 +207,11 @@ void test() {
 
 	//组合对象
 	Student s;
+	
+	s.setScore(80, 90, 95);
 	s.info.setWeight(70.5);
 	s.info.setHeight(170.5);
 	s.info.setAge(25);
-	cout << "学号：" << s.id << endl;
-	cout << "姓名：" << s.name << endl;
 	cout << "数学：" << s.math << endl;
 	cout << "英语：" << s.english << endl;
 	cout << "c语言：" << s.c_language << endl;

@@ -23,9 +23,9 @@ int main() {
 		p[i].output();
 	}
 	system("pause");
-	system("cls");
 	int choice = 0;
 	while (choice != 5) {
+		system("cls");
 		cout << "请输入操作序号:" << endl;
 		cout << "1.输出所有人中，年龄最大的人的信息。" << endl;
 		cout << "2.在用户输入的任意位置，进行人员信息的添加。" << endl;

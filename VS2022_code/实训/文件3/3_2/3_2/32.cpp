@@ -7,8 +7,6 @@
 //复数求和函数一个。
 //在主函数中，任意输入两个复数，求两个复数的和并输出到屏幕上。
 #include <iostream>
-#include<istream>
-#include<ostream>
 using namespace std;
 
 class Complex {
@@ -34,8 +32,14 @@ public:
         return is;
     }
     friend ostream& operator << (ostream& os, const Complex& c) {
-        os << c.real << "+" << c.imag << "i";
-        return os;
+        if (c.imag >= 0) {
+            os << c.real << "+" << c.imag << "i";
+            return os;
+        }
+        else {
+            os << c.real << c.imag << "i";
+            return os;
+        }
     }
     //复数求和函数
     Complex operator + (const Complex& c) const {
