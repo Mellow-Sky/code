@@ -44,7 +44,7 @@ public:
         this->h = h;
     }
     double getVolume() {
-        return 2 * PI * r * h;
+        return PI * r * r * h;
     }
 };
 
