@@ -1,6 +1,7 @@
 package ui;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
@@ -13,6 +14,10 @@ public class GameJFrame extends JFrame implements KeyListener {
     //记录空白方块位置
     int x = 0;
     int y = 0;
+
+
+    //记录当前展示图片的路径
+    String path = "..\\puzzlegame\\image\\yuzi\\segment_\\";
 
     public GameJFrame() {
         //初始化界面
@@ -32,7 +37,6 @@ public class GameJFrame extends JFrame implements KeyListener {
     }
 
 
-
     //初始化数据
     private void initData() {
         int[] tempArr = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
@@ -47,10 +51,9 @@ public class GameJFrame extends JFrame implements KeyListener {
             if(tempArr[i] == 0) {
                 x = i / 4;
                 y = i % 4;
+            }else {
+                data[i / 4][i % 4] = tempArr[i];
             }
-        }
-        for (int i = 0; i < tempArr.length; i++) {
-            data[i / 4][i % 4] = tempArr[i];
         }
     }
 
@@ -65,15 +68,18 @@ public class GameJFrame extends JFrame implements KeyListener {
                 //获取当前要加载图片的序号
                 int number = data[i][j];
                 //创建给Jlabel的对象（管理容器）
-                JLabel jLabel = new JLabel(new ImageIcon("D:\\枍\\Downloads\\C self learning\\code\\Idea_code\\puzzlegame\\image\\yuzi\\segment_" + number + ".png"));
+                JLabel jLabel = new JLabel(new ImageIcon(path + number + ".png"));
                 //指定图片位置
-                jLabel.setBounds(105 * j, 105 * i, 105, 105);
+                jLabel.setBounds(105 * j + 83, 105 * i + 134, 105, 105);
+                //给图片添加边框
+                //0让图片凸起来，1让图片凹进去
+                jLabel.setBorder(new BevelBorder(BevelBorder.LOWERED));
                 //把管理容器添加到界面中
                 this.getContentPane().add(jLabel);
             }
         }
 
-        JLabel background = new JLabel(new ImageIcon("D:\\枍\\Downloads\\C self learning\\code\\Idea_code\\puzzlegame\\image\\background.png"));
+        JLabel background = new JLabel(new ImageIcon("..\\puzzlegame\\image\\background.png"));
         background.setBounds(40, 40, 508, 560);
         //把背景图片添加到界面当中
         this.getContentPane().add(background);
@@ -112,6 +118,8 @@ public class GameJFrame extends JFrame implements KeyListener {
 
         //给整个界面设置菜单
         this.setJMenuBar(jMenuBar);
+        //给整个界面添加键盘监听事件
+        this.addKeyListener(this);
     }
 
     private void initJFrame() {
@@ -138,7 +146,21 @@ public class GameJFrame extends JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        int code = e.getKeyCode();
+        if(code == 65) {
+            //把界面所以图片删除
+            this.getContentPane().removeAll();
+            JLabel all = new JLabel(new ImageIcon(path + "all.png"));
+            all.setBounds(83, 134, 360, 360);
+            this.getContentPane().add(all);
+            //添加背景图片
+            JLabel background = new JLabel(new ImageIcon("..\\puzzlegame\\image\\background.png"));
+            background.setBounds(40, 40, 508, 560);
+            //把背景图片添加到界面当中
+            this.getContentPane().add(background);
+            //刷新界面
+            this.getContentPane().repaint();
+        }
     }
 
     @Override
@@ -147,18 +169,39 @@ public class GameJFrame extends JFrame implements KeyListener {
         //左37 上38 右39 下40
         int code = e.getKeyCode();
         if(code == 37) {
-            System.out.println("左");
+            if(y == 3) {
+                return;
+            }
+            data[x][y] = data[x][y + 1];
+            data[x][y + 1] = 0;
+            y++;
+            initImage();
         }else if(code == 38) {
-            System.out.println("上");
+            if(x == 3) {
+                return;
+            }
             data[x][y] = data[x + 1][y];
             data[x + 1][y] = 0;
             x++;
-            //重新加载图片
-            this.addKeyListener(this);
+            initImage();
         }else if(code == 39) {
-            System.out.println("右");
+            if(y == 0) {
+                return;
+            }
+            data[x][y] = data[x][y - 1];
+            data[x][y - 1] = 0;
+            y--;
+            initImage();
         }else if(code == 40) {
-            System.out.println("下");
+            if(x == 0) {
+                return;
+            }
+            data[x][y] = data[x - 1][y];
+            data[x - 1][y] = 0;
+            x--;
+            initImage();
+        }else if(code == 65) {
+            initImage();
         }
     }
 }
