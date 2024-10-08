@@ -96,9 +96,37 @@
 // }
 
 
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// int main() {
+//     int n, q;
+//     std::cin >> n >> q;
+//     std::vector<int> a(n + 1);
+//     for(int i = 1; i <= n; i++) {
+//         std::cin >> a[i];
+//     }
+//     while(q--) {
+//         int l, r;
+//         std::cin >> l >> r;
+//         std::vector<int> b(r - l + 1);
+//         for(int i = l; i <= r; i++) {
+//             int t = 0;
+//             b[t++] = a[i];
+//             std::sort(b.begin(), b.end());
+//         }
+//         std::cout << b[b.size() / 2] << std::endl;
+//     }
+
+//     return 0;
+// }
+
+
+
 #include<iostream>
-#include<vector>
 #include<algorithm>
+#include<vector>
+
 int main() {
     int n, q;
     std::cin >> n >> q;
@@ -106,16 +134,12 @@ int main() {
     for(int i = 1; i <= n; i++) {
         std::cin >> a[i];
     }
-    while(n--) {
+    while(q--) {
         int l, r;
-        std::cin >> l >> r;
-        std::vector<int> b(r - l + 1);
-        for(int i = l; i <= r; i++) {
-            int t = 0;
-            b[t++] = a[i];
-            std::sort(b.begin(), b.end());
-        }
-        std::cout << b[b.size() / 2] << std::endl;
+        std::vector<int> temp;
+        std::copy(a.begin() + l, a.begin() + r + 1, temp.begin());
+        std::sort(temp.begin(), temp.end());
+        std::cout << temp[0] << std::endl;
     }
 
     return 0;
