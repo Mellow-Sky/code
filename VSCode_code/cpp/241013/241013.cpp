@@ -72,47 +72,65 @@
 // }
 
 
+// #include<iostream>
+// #include<vector>
+// const int N = 150;
+// const int M = 150;
+// int n, m;
+// bool b = false;
+// std::vector<std::vector<int>> a(N, std::vector<int>(M));
+// void dfs(int x, int y) {
+//     if(x == n - 1 && y == m - 1) {
+//         b = true;
+//         return;
+//     }
+//     if(a[x][y] == a[x + 1][y]) {
+//         dfs(x + 1, y);
+//     }
+//     if(a[x][y] == a[x][y + 1]) {
+//         dfs(x, y + 1);
+//     }
+// }
+
+// void vol() {
+//     std::cin >> n >> m;
+//     for(int i = 0; i < n; i++) {
+//         for(int j = 0; j < m; j++) {
+//             std::cin >> a[i][j];
+//         }
+//     }
+//     b = false;
+//     dfs(0, 0);
+//     if(b) {
+//         std::cout << "Yes\n";
+//     } else {
+//         std::cout << "No\n";
+//     }
+// }
+
+// int main() {
+//     int t;
+//     std::cin >> t;
+//     while(t--) {
+//         vol();
+//     }
+//     return 0;
+// }
+
+
+
 #include<iostream>
-#include<vector>
-const int N = 150;
-const int M = 150;
-int n, m;
-bool b = false;
-std::vector<std::vector<int>> a(N, std::vector<int>(M));
-void dfs(int x, int y) {
-    if(x == n - 1 && y == m - 1) {
-        b = true;
-        return;
-    }
-    if(a[x][y] == a[x + 1][y]) {
-        dfs(x + 1, y);
-    }
-    if(a[x][y] == a[x][y + 1]) {
-        dfs(x, y + 1);
-    }
-}
-
-void vol() {
-    std::cin >> n >> m;
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < m; j++) {
-            std::cin >> a[i][j];
-        }
-    }
-    b = false;
-    dfs(0, 0);
-    if(b) {
-        std::cout << "Yes\n";
-    } else {
-        std::cout << "No\n";
-    }
-}
-
+#include<string>
 int main() {
-    int t;
-    std::cin >> t;
-    while(t--) {
-        vol();
+    int n, q;
+    std::cin >> n >> q;
+    std::string s;
+    std::cin >> s;
+    int l, r;
+    for(int i = 0; i < n; i++) {
+        std::cin >> l >> r;
+        int x = 
+
     }
     return 0;
 }
