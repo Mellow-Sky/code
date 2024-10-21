@@ -232,7 +232,7 @@ void vol() {
     std::string s;
     std::cin >> s;
     for(int i = 0; i < n - 1; i++) {
-        if(s[0] == '1' || s[n - 1] == '1' || s[i] == s[i + 1] == '1') {
+        if(s[0] == '1' || s[n - 1] == '1' || (s[i] == '1' && s[i + 1] == '1')) {
             std::cout << "Yes\n";
             return;
         }
