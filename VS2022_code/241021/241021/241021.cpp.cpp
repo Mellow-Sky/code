@@ -51,48 +51,101 @@
 
 
 
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-std::string a, b;
-std::vector <int> m, n;
-int la, lb;
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//#include <algorithm>
+//std::string a, b;
+//std::vector <int> m, n;
+//int la, lb;
+//
+//void highPrecisionMultiplication(std::vector <int>& p) {
+//    for (int i = 0; i < la; i++) {
+//        for (int j = 0; j < lb; j++) {
+//            p[i + j] += m[i] * n[j];
+//            p[i + j + 1] += p[i + j] / 10;
+//            p[i + j] %= 10;
+//        }
+//    }
+//    while (p.size() > 1 && !p.back()) {
+//        p.pop_back();
+//    }
+//}
+//
+//int main() {
+//    std::cin >> a;
+//    std::cin >> b;
+//
+//    la = a.size();
+//    lb = b.size();
+//    std::vector <int> p(la + lb);
+//
+//    for (int i = la - 1; i >= 0; i--) {
+//        m.push_back(a[i] - '0');
+//    }
+//    for (int i = lb - 1; i >= 0; i--) {
+//        n.push_back(b[i] - '0');
+//    }
+//
+//    highPrecisionMultiplication(p);
+//
+//    std::reverse(p.begin(), p.end());
+//    for (auto i : p) {
+//        std::cout << i;
+//    }
+//    return 0;
+//}
 
-void highPrecisionMultiplication(std::vector <int>& p) {
-    for (int i = 0; i < la; i++) {
-        for (int j = 0; j < lb; j++) {
-            p[i + j] += m[i] * n[j];
-            p[i + j + 1] += p[i + j] / 10;
-            p[i + j] %= 10;
+
+#include<iostream>
+#include<vector>
+#include<bitset>
+using namespace std;
+#define N 1000
+bool vis[N] = { false };// 0到N-1的元素都没有被标记
+int primes[N]; // 存放素数
+int tot;
+int main()
+{
+    vis[0] = vis[1] = true;
+    for (int i = 2; i <= N; i++) {
+        if (!vis[i]) {
+            primes[++tot] = i;
+        }
+        for (int j = 1; i * primes[j] < N; j++) {
+            vis[i * primes[j]] = true;
+            if (i % primes[j] == 0) {
+                break;
+            }
         }
     }
-    while (p.size() > 1 && !p.back()) {
-        p.pop_back();
+    int n, m;
+    cin >> n >> m;
+    int s[55][55] = { 0 };
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= m; j++)
+        {
+            cin >> s[i][j];
+        }
     }
-}
-
-int main() {
-    std::cin >> a;
-    std::cin >> b;
-
-    la = a.size();
-    lb = b.size();
-    std::vector <int> p(la + lb);
-
-    for (int i = la - 1; i >= 0; i--) {
-        m.push_back(a[i] - '0');
+    int l = 0;
+    for (int i = 1; i < n; i++)
+    {
+        for (int j = 1; j < m; j++)
+        {
+            if (primes[s[i][j]] == 1)
+            {
+                if (w[s[i][j + 1]] == 0 && w[s[i][j - 1]] == 0
+                    && primes[s[i - 1][j]] == 0 && w[s[i - 1][j + 1]] == 0
+                    && w[s[i - 1][j - 1]] == 0 && w[s[i + 1][j]] == 0
+                    && w[s[i + 1][j + 1]] == 0 && w[s[i + 1][j - 1]] == 0)
+                {
+                    l++;
+                }
+            }
+        }
     }
-    for (int i = lb - 1; i >= 0; i--) {
-        n.push_back(b[i] - '0');
-    }
-
-    highPrecisionMultiplication(p);
-
-    std::reverse(p.begin(), p.end());
-    for (auto i : p) {
-        std::cout << i;
-    }
+    cout << l;
     return 0;
 }
-
