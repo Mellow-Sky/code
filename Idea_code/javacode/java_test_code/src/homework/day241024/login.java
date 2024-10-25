@@ -41,7 +41,7 @@ public class login implements ActionListener {
         buttonEnroll.addActionListener(this);
         buttonCancel.addActionListener(this);
 
-        frame.pack();
+        frame.setBounds(200, 200, 300, 150);
         frame.setVisible(true);
     }
 
