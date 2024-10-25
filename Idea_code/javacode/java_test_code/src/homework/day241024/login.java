@@ -41,7 +41,7 @@ public class login implements ActionListener {
         buttonEnroll.addActionListener(this);
         buttonCancel.addActionListener(this);
 
-        frame.setBounds(200, 200, 300, 150);
+        frame.setBounds(400, 300, 300, 150);
         frame.setVisible(true);
     }
 
@@ -57,7 +57,9 @@ public class login implements ActionListener {
             //登录成功
             if(b) {
                 frame.setVisible(false);
-                new chat().init();
+                chat c = new chat();
+                c.setUsername(userNameText.getText());
+                c.init();
                 System.out.println("登录成功");
             } else {
                 JDialog loginFail = new JDialog(frame, "登录失败");
