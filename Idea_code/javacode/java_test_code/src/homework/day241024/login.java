@@ -49,13 +49,13 @@ public class login implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buttonLogin) {
             boolean b = false;//判断账号密码是否正确
-            for(int i = 0; i < userName.size(); i++) {
+            for (int i = 0; i < userName.size(); i++) {
                 if(userName.get(i).equals(userNameText.getText()) && password.get(i).equals(passWordText.getText())) {
                     b = true;
                 }
             }
             //登录成功
-            if(b) {
+            if (b) {
                 frame.setVisible(false);
                 chat c = new chat();
                 c.setUsername(userNameText.getText());
@@ -76,7 +76,7 @@ public class login implements ActionListener {
                     b = true;
                 }
             }
-            if(b) {//用户名存在
+            if (b) {//用户名存在
                 JDialog loginFail = new JDialog(frame, "用户名存在");
                 JLabel label = new JLabel("用户名存在");
                 loginFail.add(label);
