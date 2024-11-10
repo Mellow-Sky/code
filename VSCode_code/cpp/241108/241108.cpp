@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 void vol() {
     int n;
     std::cin >> n;
@@ -8,9 +9,7 @@ void vol() {
     for (int i = 0; i < n; i++) {
         std::cin >> a[i];
     }
-    for (int i = 0; i < n - 1; i++) {
-        max = std::max(max, a[i]);
-    }
+    max = *std::max_element(a.begin(), a.end() - 1);
     std::cout << max + a[n - 1] << "\n";
 }
 int main () {
