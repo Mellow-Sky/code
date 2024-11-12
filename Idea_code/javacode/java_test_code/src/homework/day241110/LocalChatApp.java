@@ -115,7 +115,7 @@ public class LocalChatApp {
 
         private void connectToServer() {
             try {
-                Socket socket = new Socket("localhost", PORT);
+                Socket socket = new Socket("172.25.144.1", PORT);
                 out = new PrintWriter(socket.getOutputStream(), true);
                 new MessageReceiver(socket).start();
             } catch (IOException e) {

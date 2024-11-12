@@ -141,16 +141,21 @@
 
 
 
-#include <iostream>
-
-int main () {
-    int n, c;
-    std::cin >> n >> c;
-    int temp = c, size = 0;
-    while (temp) {
-        size++;
-        temp /= 10;
-    }
-
-    return 0;
-}
+// #include <iostream>
+// #include <string>
+// int main () {
+//     int n;
+//     std::cin >> n;
+//     int ans = 0;
+//     while (n--) {
+//         std::string s;
+//         std::cin >> s;
+//         if (s[1] == '+') {
+//             ans++;
+//         } else {
+//             ans--;
+//         }
+//     }
+//     std::cout << ans;
+//     return 0;
+// }
