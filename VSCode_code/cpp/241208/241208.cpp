@@ -218,16 +218,101 @@
 
 
 
+// #include <iostream>
+// #include <map>
+// #include <string>
+// int main () {
+//     std::string s;
+//     std::cin >> s;
+//     std::map<char, int> mp;
+//     for (auto i : s) {
+//         mp[i]++;
+//     }
+//     std::cout << mp.size();
+//     return 0;
+// }
+
+
+
+// #include <iostream>
+// #include <vector>
+// #include <cmath>
+// void vol() {
+//     int n, k;
+//     std::cin >> n >> k;
+//     bool b = true;
+//     std::vector<int> a(n);
+//     for (int i = 0; i < n; i++) {
+//         std::cin >> a[i];
+//     }
+//     if (n == 1) {
+//         std::cout << "YES\n1\n";
+//         return;
+//     }
+//     for (int i = 0; i < n; i++) {
+//         for (int j = 0; j < n; j++) {
+//             if (j != i) {
+//                 if ((std::max(a[i], a[j]) - std::min(a[i], a[j])) % k == 0) {
+//                     b = true;
+//                     break;
+//                 } else {
+//                     b = false;
+//                 }
+//             }
+//         }
+//         if (!b) {
+//             std::cout << "YES\n" << i + 1 << "\n";
+//             return;
+//         }
+//     }
+//     std::cout << "NO\n";
+// }
+// int main () {
+//     int t;
+//     std::cin >> t;
+//     while (t--) {
+//         vol();
+//     }
+//     return 0;
+// }
+
+
+
+
+// #include <iostream>
+// void vol() {
+//     int n;
+//     std::cin >> n;
+//     int ans = 1;
+//     long long two = 1;
+//     while (two < n) {
+//         two = (two + 1) * 2;
+//         ans++;
+//     }
+//     std::cout << ans << "\n";
+// }
+// int main() {
+//     int t;
+//     std::cin >> t;
+//     while (t--) {
+//         vol();
+//     }
+//     return 0;
+// }
+
+
+
 #include <iostream>
-#include <map>
-#include <string>
-int main () {
-    std::string s;
-    std::cin >> s;
-    std::map<char, int> mp;
-    for (auto i : s) {
-        mp[i]++;
+void vol() {
+    int n, k;
+    std::cin >> n >> k;
+    
+}
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) {
+        vol();
     }
-    std::cout << mp.size();
     return 0;
 }
