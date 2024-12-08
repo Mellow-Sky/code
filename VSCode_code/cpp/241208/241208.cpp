@@ -133,15 +133,101 @@
 
 
 
-#include <iostream>
-void vol() {
+// #include <iostream>
+// int main () {
+//     int n, k;
+//     std::cin >> n >> k;
+//     int p = n / 2 * 2;
+//     if (n % 2 == 0) {
+//         p--;
+//     }
+//     if (p >= k) {
+//         std::cout << "YES\n";
+//     } else {
+//         std::cout << "NO\n";
+//     }
+//     return 0;
+// }
 
-}
+
+
+// #include <iostream>
+// #include <string>
+// #include <vector>
+// #include <map>
+// #include <cmath>
+// void vol() {
+//     int n;
+//     std::cin >> n;
+//     std::string s;
+//     std::cin >> s;
+//     std::map<char, std::vector<int> > mp;
+//     int ans = 1e5 + 10;
+//     for (int i = 0; i < n; i++) {
+//         mp[s[i]].push_back(i);
+//     }
+//     for (auto i : mp) {
+//         int x = i.second.size();
+//         for (int j = 1; j < x; j++) {
+//             ans = std::min(ans, std::min(i.second[x - 1] - i.second[0] - 1, n - i.second[x - 1] + i.second[0] - 1));
+//             ans = std::min(ans, std::min(i.second[j] - i.second[j - 1] - 1, n - i.second[j] + i.second[j - 1] - 1));
+//         }
+//     }
+//     if (ans != 1e5 + 10) {
+//         std::cout << ans << "\n";
+//     } else {
+//         std::cout << -1 << "\n";
+//     }
+// }
+// int main () {
+//     int t;
+//     std::cin >> t;
+//     while (t--) {
+//         vol();
+//     }
+//     return 0;
+// }
+
+
+// #include <iostream>
+// #include <string>
+// #include <cmath>
+// int main () {
+//     std::string s;
+//     std::cin >> s;
+//     int ans = 0;
+//     for (int i = 0; i < s.size() - 1; i++) {
+//         for (int j = i + 1; j < s.size(); j++) {
+//             int l = i, r = j;
+//             int size = 1;
+//             bool b = true;
+//             while (b && l < j) {
+//                 if (s[l] == s[r]) {
+//                     l++;
+//                     r++;
+//                     size++;
+//                 } else {
+//                     b = false;
+//                 }
+//             }
+//             ans = std::max(l, ans);
+//         }
+//     }
+//     return 0;
+// }
+
+
+
+#include <iostream>
+#include <map>
+#include <string>
 int main () {
-    int t;
-    std::cin >> t;
-    while (t--) {
-        vol();
+    std::string s;
+    std::cin >> s;
+    std::map<char, int> mp;
+    for (auto i : s) {
+        mp[i]++;
     }
+    std::cout << mp.size();
     return 0;
 }
