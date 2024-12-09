@@ -302,17 +302,31 @@
 
 
 
-#include <iostream>
-void vol() {
-    int n, k;
-    std::cin >> n >> k;
+// #include <iostream>
+// void vol() {
+//     int n, k;
+//     std::cin >> n >> k;
     
-}
-int main() {
-    int t;
-    std::cin >> t;
-    while (t--) {
-        vol();
+// }
+// int main() {
+//     int t;
+//     std::cin >> t;
+//     while (t--) {
+//         vol();
+//     }
+//     return 0;
+// }
+
+
+#include <iostream>
+#include <algorithm>
+int main () {
+    int arr[5] = {3, 5, 6, 1, 2};
+    std::sort(arr, arr + 5, [](auto a, auto b){
+        return a > b;
+    });
+    for (auto i : arr) {
+        std::cout << i << " ";
     }
     return 0;
 }
