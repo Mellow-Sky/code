@@ -1,202 +1,176 @@
 package my_code.GPT;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.util.*;
 
-public class test {
-    JFrame frame = new JFrame("Calculator");
-    JMenuBar menuBar = new JMenuBar();
-    JMenu edit = new JMenu("Edit"); // 编辑
-    JMenuItem save = new JMenuItem("Save"); // 保存文件
-    JMenu check = new JMenu("Check"); // 查看
-    JMenuItem message = new JMenuItem("About me");
-    JMenu help = new JMenu("Help"); // 帮助
-    String[] s = new String[]{"", "", "", "Backspace", "CE", "C", "MC", "7", "8", "9", "/", "sqrt",
-            "MR", "4", "5", "6", "*", "%", "MS", "1", "2", "3", "-", "1/x", "M+", "0", "+/-", ".", "+", "="};
-    JTextField textField = new JTextField(100);
-    String currentInput = "";  // 当前输入
-    double result = 0;  // 运算结果
-    String lastOperator = "=";  // 上一个运算符
-    boolean isOperatorPressed = false;  // 判断是否已经按下运算符
+public class test extends JFrame {
 
-    public void addMenu() {
-        // 添加菜单
-        edit.add(save);
-        check.add(message);
-        menuBar.add(edit);
-        menuBar.add(check);
-        menuBar.add(help);
-        frame.setJMenuBar(menuBar);
+    public String path = "..\\LianLianKanGame\\picture\\";
+    public String[] imageNames = {"0.jpg", "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"};
+    private static final int ROWS = 10; // Grid rows
+    private static final int COLS = 10; // Grid columns
+    private static final int TILE_SIZE = 50; // Size of each tile
+    private JButton[][] buttons = new JButton[ROWS][COLS];
+    private ArrayList<Point> tiles = new ArrayList<>();
+    private Point firstSelected = null;
+    private Point secondSelected = null;
+    private int score = 0; // To track the number of moves
+    private JLabel scoreLabel;
+
+    public test() {
+        setTitle("Lianliankan Game");
+        setSize(COLS * TILE_SIZE + 200, ROWS * TILE_SIZE + 100); // Adjust size to fit buttons
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+
+        // Create game board panel
+        JPanel gameBoard = new JPanel();
+        gameBoard.setLayout(new GridLayout(ROWS, COLS));
+        gameBoard.setBounds(0, 0, COLS * TILE_SIZE, ROWS * TILE_SIZE);
+
+        // 初始化button
+        initButtons(gameBoard);
+
+        // Scoreboard label
+        scoreLabel = new JLabel("Moves: 0");
+        scoreLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        scoreLabel.setBounds(COLS * TILE_SIZE + 20, 30, 150, 30);
+        add(scoreLabel);
+
+        // Exit button
+        JButton exitButton = new JButton("Exit");
+        exitButton.setBounds(COLS * TILE_SIZE + 20, 70, 150, 40);
+        exitButton.addActionListener(e -> System.exit(0));
+        add(exitButton);
+
+        // Reopen button
+        JButton reopenButton = new JButton("Reopen");
+        reopenButton.setBounds(COLS * TILE_SIZE + 20, 120, 150, 40);
+        reopenButton.addActionListener(e -> reopenGame());
+        add(reopenButton);
+
+        add(gameBoard);
+        setVisible(true);
+
+        // Start the game
+        randomizeTiles();
+        addTileSelectionListener();
     }
 
-    public void addButton() {
-        // 添加按钮
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(5, 6));
-        for (String label : s) {
-            Button button = new Button(label);
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    handleButtonPress(label);
-                }
-            });
-            panel.add(button);
-        }
-        frame.add(panel);
+    private ImageIcon loadImage(String imageName) {
+        return new ImageIcon(getClass().getResource("..\\B2\\lianliankan" + imageName));
     }
 
-    public void handleButtonPress(String label) {
-        switch (label) {
-            case "=":
-                calculate();
-                break;
-            case "C":
-                currentInput = "";
-                result = 0;
-                lastOperator = "=";
-                isOperatorPressed = false;
-                break;
-            case "CE":
-                currentInput = "";
-                break;
-            case "Backspace":
-                if (currentInput.length() > 0) {
-                    currentInput = currentInput.substring(0, currentInput.length() - 1);
-                }
-                break;
-            case "+/-":
-                if (currentInput.startsWith("-")) {
-                    currentInput = currentInput.substring(1);
-                } else {
-                    currentInput = "-" + currentInput;
-                }
-                break;
-            case "sqrt":
-                try {
-                    double value = Double.parseDouble(currentInput);
-                    currentInput = String.valueOf(Math.sqrt(value));
-                } catch (NumberFormatException e) {
-                    currentInput = "Error";
-                }
-                break;
-            case "1/x":
-                try {
-                    double value = Double.parseDouble(currentInput);
-                    currentInput = String.valueOf(1 / value);
-                } catch (NumberFormatException e) {
-                    currentInput = "Error";
-                }
-                break;
-            case "%":
-                try {
-                    double value = Double.parseDouble(currentInput);
-                    currentInput = String.valueOf(value / 100);
-                } catch (NumberFormatException e) {
-                    currentInput = "Error";
-                }
-                break;
-            case "M+":
-                // Implement memory add functionality
-                break;
-            case "MR":
-                // Implement memory recall functionality
-                break;
-            case "MS":
-                // Implement memory store functionality
-                break;
-            case "MC":
-                // Implement memory clear functionality
-                break;
-            default:
-                // 数字和小数点按钮
-                if ("0123456789.".contains(label)) {
-                    if (isOperatorPressed) {
-                        currentInput = label;
-                        isOperatorPressed = false;
-                    } else {
-                        currentInput += label;
-                    }
-                } else {
-                    // 操作符按钮
-                    performOperation(label);
-                }
-                break;
-        }
-        textField.setText(currentInput);
-    }
+    private void initButtons(JPanel gameBoard) {
+        //String[] imageNames = {"1.png", "2.png", "3.png", "4.png", "5.png"};
+        Random rand = new Random();
 
-    public void performOperation(String operator) {
-        try {
-            double input = Double.parseDouble(currentInput);
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLS; j++) {
+                buttons[i][j] = new JButton();
+                buttons[i][j].setPreferredSize(new Dimension(TILE_SIZE, TILE_SIZE));
+                buttons[i][j].setFont(new Font("Arial", Font.BOLD, 20));
+                buttons[i][j].setBackground(Color.LIGHT_GRAY);
+                buttons[i][j].setEnabled(false); // 初始时禁用按钮
 
-            // 执行上一个运算
-            switch (lastOperator) {
-                case "=":
-                    result = input;
-                    break;
-                case "+":
-                    result += input;
-                    break;
-                case "-":
-                    result -= input;
-                    break;
-                case "*":
-                    result *= input;
-                    break;
-                case "/":
-                    if (input != 0) {
-                        result /= input;
-                    } else {
-                        currentInput = "Error";
-                        textField.setText(currentInput);
-                        return;
-                    }
-                    break;
+                gameBoard.add(buttons[i][j]);  // 将按钮添加到面板上
             }
+        }
+    }
 
-            currentInput = "";  // 清空当前输入
-            lastOperator = operator;  // 更新当前运算符
-            isOperatorPressed = true;  // 标记已按下运算符
 
-            // 更新显示
-            if (lastOperator.equals("=")) {
-                textField.setText(String.valueOf(result));
+    private void randomizeTiles() {
+        // Clear any previous tiles
+        tiles.clear();
+        // Create a list of all tile positions
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLS; j++) {
+                tiles.add(new Point(i, j));
+            }
+        }
+
+        // Randomly place numbers on tiles
+        Collections.shuffle(tiles);
+        int tileNumber = 1;
+        for (Point p : tiles) {
+            buttons[p.x][p.y].setText(String.valueOf(tileNumber));
+            ImageIcon icon = new ImageIcon(path + imageNames[tileNumber]);
+            buttons[p.x][p.y].setIcon(icon);
+            buttons[p.x][p.y].setEnabled(true); // Enable the button
+            tileNumber = (tileNumber % 5) + 1; // Use 5 different numbers for the tiles
+        }
+    }
+
+    private void addTileSelectionListener() {
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLS; j++) {
+                final int x = i, y = j;
+                buttons[x][y].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        handleTileSelection(x, y);
+                    }
+                });
+            }
+        }
+    }
+
+    private void handleTileSelection(int x, int y) {
+        // If no tile is selected, select the first tile
+        if (firstSelected == null) {
+            firstSelected = new Point(x, y);
+            buttons[x][y].setBackground(Color.YELLOW);
+        } else if (secondSelected == null) {
+            secondSelected = new Point(x, y);
+            buttons[x][y].setBackground(Color.YELLOW);
+
+            // Check if the selected tiles match
+            if (isMatch(firstSelected, secondSelected)) {
+                buttons[firstSelected.x][firstSelected.y].setEnabled(false);
+                buttons[secondSelected.x][secondSelected.y].setEnabled(false);
+                score++;
+                updateScoreboard();
+                resetSelection();
             } else {
-                textField.setText(String.valueOf(result) + " " + operator);
+                // If no match, reset selection
+                Timer timer = new Timer(500, e -> resetSelection());
+                timer.setRepeats(false);
+                timer.start();
             }
-        } catch (NumberFormatException e) {
-            currentInput = "Error";
-            textField.setText(currentInput);
         }
     }
 
-    public void calculate() {
-        try {
-            double input = Double.parseDouble(currentInput);
-            performOperation(lastOperator);
-            //result = input;
-            lastOperator = "=";
-            textField.setText(String.valueOf(result));
-        } catch (NumberFormatException e) {
-            currentInput = "Error";
-            textField.setText(currentInput);
-        }
+    private boolean isMatch(Point p1, Point p2) {
+        // Check if the numbers match (you can customize matching logic here)
+        return buttons[p1.x][p1.y].getText().equals(buttons[p2.x][p2.y].getText());
     }
 
-    public void init() {
-        addMenu();
-        frame.add(textField, BorderLayout.NORTH);
-        addButton();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setBounds(300, 300, 600, 400);
-        frame.setVisible(true);
+    private void resetSelection() {
+        if (firstSelected != null) {
+            buttons[firstSelected.x][firstSelected.y].setBackground(Color.LIGHT_GRAY);
+        }
+        if (secondSelected != null) {
+            buttons[secondSelected.x][secondSelected.y].setBackground(Color.LIGHT_GRAY);
+        }
+        firstSelected = null;
+        secondSelected = null;
+    }
+
+    private void updateScoreboard() {
+        scoreLabel.setText("Moves: " + score);
+    }
+
+    private void reopenGame() {
+        score = 0;
+        updateScoreboard();
+        randomizeTiles();
+        resetSelection();
     }
 
     public static void main(String[] args) {
-        test menu = new test();
-        menu.init();
+        SwingUtilities.invokeLater(() -> new test());
     }
 }
