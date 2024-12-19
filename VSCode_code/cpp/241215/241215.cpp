@@ -155,3 +155,41 @@
 //     }
 //     return 0;
 // }
+
+
+
+// #include <iostream>
+// #include <vector>
+// void vol() {
+//     int n, q;
+//     std::cin >> n >> q;
+//     std::vector<long long> a(n + 1, 0), presum(n + 1, 0), b(n + 1, 0);
+//     for (int i = 1; i <= n; i++) {
+//         std::cin >> a[i];
+//         presum[i] += a[i] + presum[i - 1];
+//         b[i] = presum[i] - presum[i - 1];
+//     }
+//     while (q--) {
+//         int x;
+//         std::cin >> x;
+//         long long ans = 0;
+//         for (int i = 1; i <= n; i++) {
+//             if (b[i] <= x) {
+//                 ans = presum[i];
+//             } else {
+//                 break;
+//             }
+//         }
+//         std::cout << ans << " ";
+//     }
+//     std::cout << '\n';
+// }
+// int main () {
+//     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
+//     int t;
+//     std::cin >> t;
+//     while (t--) {
+//         vol();
+//     }
+//     return 0;
+// }
