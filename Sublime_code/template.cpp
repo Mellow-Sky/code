@@ -1,5 +1,10 @@
 #include <bits/stdc++.h>
 using ll = long long;
+using i32 = int;
+using i64 = long long;
+using u32 = unsigned int;
+using u64 = unsigned long long;
+
 const int N = 3e5;
 
 void solve() {
