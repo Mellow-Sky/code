@@ -64,12 +64,21 @@ const int N = 3e5;
 void solve() {
     int n;
     std::cin >> n;
-    std::string s;
-    std::cin >> s;
-    if (s.find("ps") != s.npos) {
-        std::cout << "NO\n";
-    } else {
+    std::string str;
+    std::cin >> str;
+    int p = n + 1, s = -1;
+    for (int i = 0; i < n; i++) {
+        if (str[i] == 'p') {
+            p = std::min(p, i);
+        }
+        if (str[i] == 's') {
+            s = std::max(s, i);
+        }
+    }
+    if (p >= n - 1 || s <= 0) {
         std::cout << "YES\n";
+    } else {
+        std::cout << "NO\n";
     }
 }
 
