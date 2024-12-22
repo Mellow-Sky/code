@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-using ll = long long;
 using i32 = int;
 using i64 = long long;
 using u32 = unsigned int;
