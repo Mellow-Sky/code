@@ -81,31 +81,31 @@
 
 
 
-// #include <bits/stdc++.h>
-// using ll = long long;
+#include <bits/stdc++.h>
+using ll = long long;
 
-// const int N = 3e5;
+const int N = 3e5;
 
-// void solve() {
-//     int n = 2025;
-//     while (n <= 9999) {
-//         int p = (n / 100) + (n % 100);
-//         if (p * p == n) {
-//             std::cout << n << "\n";
-//         }
-//         n++;
-//     }
-// }
+void solve() {
+    int n = 2025;
+    while (n <= 9999) {
+        int p = (n / 100) + (n % 100);
+        if (p * p == n) {
+            std::cout << n << "\n";
+        }
+        n++;
+    }
+}
 
-// int main() {
-//     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
-//     int t;
-//     t = 1;
-//     while (t--) {
-//         solve();
-//     }
-//     return 0;
-// }
+int main() {
+    std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
+    int t;
+    t = 1;
+    while (t--) {
+        solve();
+    }
+    return 0;
+}
 
 
 
